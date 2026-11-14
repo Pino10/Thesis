@@ -10,7 +10,7 @@ from common import MODELS, RESULTS, Student, Teacher, evaluate, load_split, load
 
 train_df, _, _ = load_split("train")
 test_df, x_test, y_test = load_split("test")
-train_domains = set(train_df["Domain"])
+train_domains = set(train_df["Domain"].str.lower())
 
 rows = []
 for seed in (42, 43, 44):

@@ -14,6 +14,7 @@ The study rebuilds the ADUIN phishing URL detector (Gobinath and Manikandan, *Sc
 | `models/quantization/` | Baseline U after dynamic 8-bit post-training quantization. |
 | `models/distillation/` | The four student networks (S-192, S-64, S-16, S-LIN) and S-16 quantized to 8 bits. |
 | `results/` | Per-seed test results for every experiment. |
+| `notebook/` | The original Google Colab notebook used for every experiment, from downloading the dataset to the final comparison table. |
 | `code/` | Model definitions, a script that reloads the saved models and checks them against the recorded results, and the teacher control experiment. |
 
 ## Main results (mean of three seeds)
@@ -38,7 +39,9 @@ python code/teacher_control.py         # reruns the with/without-teacher control
 
 The models expect inputs in the order listed in `data/features_U.txt`, scaled with `data/scaler_min_U.npy` and `data/scaler_rng_U.npy`. Label 1 is legitimate and label 0 is phishing; the models output the probability that a URL is legitimate.
 
-The original training was done in Google Colab (Python 3.12, PyTorch 2.11, Tesla T4). The training notebook will be added to `notebook/`.
+All original experiments were run in Google Colab (Python 3.12, PyTorch 2.11, Tesla T4) using `notebook/Thesis.ipynb`. The notebook reads and writes a Google Drive folder (`/MyDrive/thesis_experiments`); to rerun it, point that folder at a copy of this repository's `data/` and `models/` contents. Latency was measured on the Colab CPU: single-URL timings over 300 calls after 20 warm-up calls, and batch timings over 30 batches of 512 after 5 warm-up batches.
+
+The teacher control experiment in `code/teacher_control.py` was added afterwards and run on a CPU outside Colab, following the notebook's distillation settings.
 
 ## Data
 

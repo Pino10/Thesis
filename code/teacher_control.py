@@ -4,9 +4,10 @@ Trains S-16 and S-LIN twice on identical data and settings, once on the true lab
 alone and once with knowledge distillation from the saved Baseline U teacher, for
 seeds 42, 43 and 44. Writes results/teacher_control_results.csv.
 
-Settings follow the original distillation runs: Adam (lr 0.001), batch 128, up to
-30 epochs, early stopping with patience 4 on validation loss, and for distillation
-loss = 0.5 * weighted BCE + 0.5 * T^2 * BCE(student/T, sigmoid(teacher/T)), T = 2.
+Settings follow Step 11C of the original notebook: Adam (lr 0.001), batch 128, up
+to 30 epochs, early stopping with patience 4 when the unweighted validation BCE stops
+improving by more than 1e-5, sample weights of 1 minus each class's training share,
+and for distillation loss = 0.5 * weighted BCE + 0.5 * T^2 * BCE(student/T, sigmoid(teacher/T)), T = 2.
 
     python code/teacher_control.py
 """
@@ -18,8 +19,7 @@ import pandas as pd
 import torch
 import torch.nn as nn
 
-from common import (MODELS, RESULTS, W_LEGIT, W_PHISH, Student, Teacher, evaluate,
-                    load_split, load_weights)
+from common import MODELS, RESULTS, Student, Teacher, evaluate, load_split, load_weights
 
 torch.set_num_threads(4)
 T = 2.0
@@ -27,19 +27,23 @@ T = 2.0
 train_df, x_tr, y_tr = load_split("train")
 _, x_va, y_va = load_split("val")
 test_df, x_te, y_te = load_split("test")
-train_domains = set(train_df["Domain"])
+train_domains = set(train_df["Domain"].str.lower())
 
 
-def weighted_bce(logits, y):
-    w = torch.where(y == 0, torch.tensor(W_PHISH), torch.tensor(W_LEGIT))
-    return (nn.functional.binary_cross_entropy_with_logits(logits, y, reduction="none") * w).mean()
+frac_phish = float((y_tr == 0).float().mean())
+sample_w = torch.where(y_tr == 0, torch.tensor(1.0 - frac_phish), torch.tensor(frac_phish))
+
+
+def val_loss_fn(model):
+    with torch.no_grad():
+        return nn.functional.binary_cross_entropy_with_logits(model(x_va), y_va).item()
 
 
 results = []
 for seed in (42, 43, 44):
     teacher = load_weights(Teacher(), MODELS / "baselines" / f"baselineU_seed{seed}.pt")
     with torch.no_grad():
-        t_tr, t_va = teacher(x_tr), teacher(x_va)
+        soft_tr = torch.sigmoid(teacher(x_tr) / T)
 
     for kind in ("S-16", "S-LIN"):
         for mode in ("no_teacher", "distilled"):
@@ -48,11 +52,10 @@ for seed in (42, 43, 44):
             model = Student(kind)
             opt = torch.optim.Adam(model.parameters(), lr=1e-3)
 
-            def loss_fn(logits, y, t_logits):
-                loss = weighted_bce(logits, y)
+            def loss_fn(logits, y, w, soft):
+                loss = nn.functional.binary_cross_entropy_with_logits(logits, y, weight=w)
                 if mode == "distilled":
-                    soft = nn.functional.binary_cross_entropy_with_logits(logits / T, torch.sigmoid(t_logits / T))
-                    loss = 0.5 * loss + 0.5 * T * T * soft
+                    loss = 0.5 * loss + 0.5 * T * T * nn.functional.binary_cross_entropy_with_logits(logits / T, soft)
                 return loss
 
             best, best_state, bad, start = float("inf"), None, 0, time.time()
@@ -63,12 +66,11 @@ for seed in (42, 43, 44):
                 for i in range(0, len(perm), 128):
                     idx = perm[i:i + 128]
                     opt.zero_grad()
-                    loss_fn(model(x_tr[idx]), y_tr[idx], t_tr[idx]).backward()
+                    loss_fn(model(x_tr[idx]), y_tr[idx], sample_w[idx], soft_tr[idx]).backward()
                     opt.step()
                 model.eval()
-                with torch.no_grad():
-                    val_loss = loss_fn(model(x_va), y_va, t_va).item()
-                if val_loss < best - 1e-7:
+                val_loss = val_loss_fn(model)
+                if val_loss < best - 1e-5:
                     best, bad = val_loss, 0
                     best_state = {k: v.clone() for k, v in model.state_dict().items()}
                 else:

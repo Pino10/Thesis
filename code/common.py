@@ -20,15 +20,15 @@ FEATURES_U = [l.strip() for l in open(DATA / "features_U.txt") if l.strip()]
 MIN_U = np.load(DATA / "scaler_min_U.npy")
 RNG_U = np.load(DATA / "scaler_rng_U.npy")
 
-# Class weights for the weighted binary cross-entropy (1 minus each class's share).
-# Label 0 = phishing, label 1 = legitimate.
-W_PHISH, W_LEGIT = 0.5732, 0.4268
+# Labels: 0 = phishing, 1 = legitimate.
 
 
 def load_split(name):
     """Load the train, val or test split and apply the min-max scaling fitted on training data."""
     df = pd.read_parquet(DATA / f"split_{name}.parquet")
-    x = ((df[FEATURES_U].values.astype(np.float64) - MIN_U) / RNG_U).astype(np.float32)
+    x = ((df[FEATURES_U].values.astype(np.float32) - MIN_U) / RNG_U).astype(np.float32)
+    if name != "train":
+        x = np.clip(x, 0.0, 1.0)   # as in the original notebook: clip val/test to the training range
     return df, torch.tensor(x), torch.tensor(df["label"].values.astype(np.float32))
 
 
@@ -79,11 +79,12 @@ def load_weights(model, path):
 
 
 def evaluate(logits, y, df, train_domains):
-    """Metrics as reported in the thesis. The model's output is the probability of 'legitimate'."""
+    """Metrics as reported in the thesis. The model's output is the probability of 'legitimate'.
+    train_domains must be lower-cased."""
     pred = (torch.sigmoid(logits).numpy() >= 0.5).astype(int)
     y = y.numpy().astype(int)
     phish, legit = y == 0, y == 1
-    unseen = phish & ~df["Domain"].isin(train_domains).values
+    unseen = phish & ~df["Domain"].str.lower().isin(train_domains).values
     return {
         "accuracy": float((pred == y).mean()),
         "precision": float(((pred == 0) & phish).sum() / max((pred == 0).sum(), 1)),
