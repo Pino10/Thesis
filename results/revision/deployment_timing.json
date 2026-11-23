@@ -1,0 +1,31 @@
+{
+ "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+ "python": "3.13.18",
+ "onnxruntime": "1.29.0",
+ "tld_table_entries": 642,
+ "char_table_entries": 70,
+ "Baseline U": {
+  "parameters": 96385,
+  "raw_weight_bytes": 385540,
+  "pytorch_file_bytes": 391801,
+  "onnx_file_bytes": 398160,
+  "inference_ms_median": 0.033941499964385,
+  "inference_ms_p95": 0.060615950019382574,
+  "full_pipeline_ms_median": 0.07303000006686489,
+  "full_pipeline_ms_p95": 0.12899434998416834,
+  "batch512_ms_per_url": 0.005385481445463469
+ },
+ "S-16": {
+  "parameters": 545,
+  "raw_weight_bytes": 2180,
+  "pytorch_file_bytes": 5413,
+  "onnx_file_bytes": 3137,
+  "inference_ms_median": 0.00543550004294957,
+  "inference_ms_p95": 0.007894499970007017,
+  "full_pipeline_ms_median": 0.03708249982992129,
+  "full_pipeline_ms_p95": 0.06828505004250474,
+  "batch512_ms_per_url": 3.401269532687934e-05
+ },
+ "feature_extraction_ms_median": 0.015678499948990066,
+ "feature_extraction_ms_p95": 0.03232669990893555
+}
