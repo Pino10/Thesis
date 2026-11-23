@@ -1,0 +1,19 @@
+{
+ "n_phishing_fresh": 298,
+ "n_legit_fresh": 1000,
+ "features": [
+  "DomainLength",
+  "IsDomainIP",
+  "TLDLegitimateProb",
+  "TLDLength",
+  "NoOfSubDomain",
+  "HasObfuscation",
+  "NoOfObfuscatedChar",
+  "ObfuscationRatio",
+  "NoOfDegitsInURL",
+  "NoOfEqualsInURL",
+  "NoOfQMarkInURL",
+  "NoOfAmpersandInURL",
+  "IsHTTPS"
+ ]
+}

@@ -1,0 +1,10 @@
+seed 42 trained
+seed 43 trained
+seed 44 trained
+model                                       Logistic regression  Gradient boosting  S-16 (labels only)
+phiusiil_accuracy                                         85.91              97.05               95.16
+phiusiil_recall                                           76.42              94.75               91.30
+phiusiil_fpr                                               6.90               1.21                1.93
+fresh_recall phishing (OpenPhish)                         80.87              92.62               89.71
+fresh_fpr legitimate, https://www.<domain>                 5.90               5.80                6.03
+fresh_fpr legitimate, https://<domain>                    33.50              91.80               90.03

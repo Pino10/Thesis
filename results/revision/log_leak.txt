@@ -1,1 +1,2 @@
 {"model": "Baseline U without TLDLegitimateProb and URLCharProb", "seed": 42, "n_features": 22, "accuracy": 0.996438, "precision": 0.999868, "zeroday": 0.991859, "f1": 0.995847, "fpr": 9.9e-05, "auc": 0.998822, "pr_auc": 0.998913, "zd_unseen": 0.994738, "epochs": 12, "minutes": 19.6}
+{"model": "Baseline U without TLDLegitimateProb and URLCharProb", "seed": 43, "n_features": 22, "accuracy": 0.996325, "precision": 0.999669, "zeroday": 0.991793, "f1": 0.995716, "fpr": 0.000248, "auc": 0.998721, "pr_auc": 0.998842, "zd_unseen": 0.994657, "epochs": 16, "minutes": 37.3}
