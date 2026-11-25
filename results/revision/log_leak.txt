@@ -1,2 +1,4 @@
 {"model": "Baseline U without TLDLegitimateProb and URLCharProb", "seed": 42, "n_features": 22, "accuracy": 0.996438, "precision": 0.999868, "zeroday": 0.991859, "f1": 0.995847, "fpr": 9.9e-05, "auc": 0.998822, "pr_auc": 0.998913, "zd_unseen": 0.994738, "epochs": 12, "minutes": 19.6}
 {"model": "Baseline U without TLDLegitimateProb and URLCharProb", "seed": 43, "n_features": 22, "accuracy": 0.996325, "precision": 0.999669, "zeroday": 0.991793, "f1": 0.995716, "fpr": 0.000248, "auc": 0.998721, "pr_auc": 0.998842, "zd_unseen": 0.994657, "epochs": 16, "minutes": 37.3}
+{"model": "Baseline U without TLDLegitimateProb and URLCharProb", "seed": 44, "n_features": 22, "accuracy": 0.99672, "precision": 0.999736, "zeroday": 0.992647, "f1": 0.996178, "fpr": 0.000199, "auc": 0.998732, "pr_auc": 0.99887, "zd_unseen": 0.995143, "epochs": 16, "minutes": 27.4}
+DONE
