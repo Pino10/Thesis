@@ -6,3 +6,10 @@
 {"fold": 2, "model": "S-16 (labels only)", "n_test": 47159, "accuracy": 0.9970949341589093, "phishing_recall": 0.994238315203894, "fpr": 0.0007770295271220306}
 {"fold": 3, "model": "Gradient boosting", "n_test": 47159, "accuracy": 0.9946139655208974, "phishing_recall": 0.9932381667918858, "fpr": 0.004375965286460249}
 {"fold": 3, "model": "S-16 (labels only)", "n_test": 47159, "accuracy": 0.9962043300324435, "phishing_recall": 0.9920360631104432, "fpr": 0.000735456350665588}
+{"fold": 4, "model": "Gradient boosting", "n_test": 47159, "accuracy": 0.9976886702432197, "phishing_recall": 0.9953778826768943, "fpr": 0.0005592424129445977}
+{"fold": 4, "model": "S-16 (labels only)", "n_test": 47159, "accuracy": 0.996755656396446, "phishing_recall": 0.9939519103112553, "fpr": 0.0011184848258891955}
+                   accuracy       phishing_recall         fpr      
+                       mean   std            mean   std  mean   std
+model                                                              
+Gradient boosting     99.69  0.13           99.46  0.09  0.14  0.17
+S-16 (labels only)    99.67  0.03           99.33  0.09  0.07  0.03
