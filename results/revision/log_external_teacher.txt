@@ -1,2 +1,10 @@
 seed 42 trained
 seed 43 trained
+seed 44 trained
+model                                       Logistic regression  Gradient boosting  S-16 (labels only)  Baseline U architecture
+phiusiil_accuracy                                         85.91              97.05               94.97                    95.66
+phiusiil_recall                                           76.42              94.75               91.08                    92.77
+phiusiil_fpr                                               6.90               1.21                2.10                     2.16
+fresh_recall phishing (OpenPhish)                         80.87              92.62               89.93                    89.82
+fresh_fpr legitimate, https://www.<domain>                 5.90               5.80                6.57                     5.63
+fresh_fpr legitimate, https://<domain>                    33.50              91.80               90.10                    90.07
