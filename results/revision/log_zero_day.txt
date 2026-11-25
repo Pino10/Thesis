@@ -1,0 +1,18 @@
+{
+ "domain_definition": "PhiUSIIL 'Domain' is the full hostname, e.g. www.gastronomie-sf.com, www.thirtyeighthstreet.com, token-mt.firebaseapp.com",
+ "train_hostnames_in_both_classes": 30,
+ "train_registered_domains_in_both_classes": 67,
+ "test_phishing_rows": 15231,
+ "unseen_phishing_rows_hostname_level": 12353,
+ "unseen_phishing_rows_registered_level": 5801,
+ "test_legit_rows": 20139,
+ "unseen_legit_rows_hostname_level": 20132,
+ "unseen_legit_rows_registered_level": 19635,
+ "seen_phishing_share_with_subdomain": 0.5917303683113273,
+ "unseen_phishing_share_with_subdomain": 0.8963004938071724,
+ "seen_phishing_share_bare_homepage": 0.19701181375955526,
+ "seen_phishing_mean_url_length": 79.02675469075747,
+ "unseen_phishing_share_bare_homepage": 0.8210960900186189,
+ "unseen_phishing_mean_url_length": 38.55306403302841
+}
+DONE

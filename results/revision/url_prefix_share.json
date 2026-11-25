@@ -1,0 +1,10 @@
+{
+ "phishing": {
+  "https_pct": 48.7,
+  "www_pct": 41.4
+ },
+ "legitimate": {
+  "https_pct": 100.0,
+  "www_pct": 100.0
+ }
+}

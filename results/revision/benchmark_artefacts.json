@@ -1,0 +1,47 @@
+{
+ "urllength_minus_true_length_by_class_pct": {
+  "phishing": {
+   "-1": 51.81,
+   "0": 48.19,
+   "-4": 0.0,
+   "-35": 0.0
+  },
+  "legitimate": {
+   "-1": 100.0
+  }
+ },
+ "test_leftover_value_counts": {
+  "legitimate": {
+   "12": 20139
+  },
+  "phishing": {
+   "8": 7395,
+   "11": 5542,
+   "7": 1822,
+   "12": 387,
+   "23": 42,
+   "16": 18,
+   "15": 10,
+   "20": 6
+  }
+ },
+ "accuracy_from_leftover_alone_pct": 98.91,
+ "bare_homepage_pct": {
+  "phishing": 71.6,
+  "legitimate": 100.0
+ },
+ "free_hosting_pct": {
+  "phishing": 30.7,
+  "legitimate": 0.0
+ },
+ "keyword_flag_agreement_with_url_text_pct": {
+  "Bank": 87.77,
+  "Pay": 76.61,
+  "Crypto": 97.73
+ },
+ "keyword_flag_set_but_word_absent_from_url": {
+  "Bank": 28845,
+  "Pay": 55149,
+  "Crypto": 5343
+ }
+}

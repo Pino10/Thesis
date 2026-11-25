@@ -80,7 +80,8 @@ for seed in (42, 43, 44):
     for kind in ("S-192", "S-64", "S-16", "S-LIN"):
         s = load_weights(Student(kind), MODELS / "distillation" / f"student_{kind}_seed{seed}.pt")
         models[(kind, seed)] = (probs(s, x_va), probs(s, x_te))
-    p = load_weights(Teacher(), MODELS / "pruning" / "iterative" / f"pruneU_iter_s90_seed{seed}.pt")
+    # pruned with the output layer protected (revision rerun), see prune_protected.py
+    p = load_weights(Teacher(), RESULTS / "revision" / f"prune_protected_iterative_s90_seed{seed}.pt")
     models[("Pruned 90% (iterative)", seed)] = (probs(p, x_va), probs(p, x_te))
     frac = float((y_tr == 0).float().mean())
     gb = HistGradientBoostingClassifier(random_state=seed, class_weight={0: 1 - frac, 1: frac}, max_iter=500,
