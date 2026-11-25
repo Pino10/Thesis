@@ -4,3 +4,5 @@
 {"fold": 1, "model": "S-16 (labels only)", "n_test": 47159, "accuracy": 0.9967980661167539, "phishing_recall": 0.9930699930699931, "fpr": 0.0004080572764031606}
 {"fold": 2, "model": "Gradient boosting", "n_test": 47159, "accuracy": 0.9977946945439895, "phishing_recall": 0.9953807182238117, "fpr": 0.00040701546658773036}
 {"fold": 2, "model": "S-16 (labels only)", "n_test": 47159, "accuracy": 0.9970949341589093, "phishing_recall": 0.994238315203894, "fpr": 0.0007770295271220306}
+{"fold": 3, "model": "Gradient boosting", "n_test": 47159, "accuracy": 0.9946139655208974, "phishing_recall": 0.9932381667918858, "fpr": 0.004375965286460249}
+{"fold": 3, "model": "S-16 (labels only)", "n_test": 47159, "accuracy": 0.9962043300324435, "phishing_recall": 0.9920360631104432, "fpr": 0.000735456350665588}
